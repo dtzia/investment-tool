@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Capital Calculator</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Υπολογισμός Δόσης</h1>
+
+        <!-- Target Capital Form -->
+        <form action="{{ url_for('target_amount') }}" method="post" class="investment-form">
+            {{ form.csrf_token }}
+            <div class="form-field">
+                {{ form.target_capital.label }} {{ form.target_capital(class="form-control") }}
+            </div>
+            <div class="form-field">
+                {{ form.years.label }} {{ form.years(class="form-control") }}
+            </div>
+            <div class="form-field">
+                {{ form.annual_return.label }} {{ form.annual_return(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Υπολόγισε</button>
+        </form>
+
+        <!-- Results Section -->
+        {% if monthly_contribution %}
+        <div class="result-container">
+            <h2>Μηνιαία Δόση</h2>
+            <p> {{ monthly_contribution }} &euro;</p>
+
+        </div>
+        {% endif %}
+
+        <a href="/options" class="back-button">Back to Home</a>
+    </div>
+</body>
+</html>

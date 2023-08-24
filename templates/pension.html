@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pension calculation</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Υπολογισμός Σύνταξης</h1>
+
+        <!-- User Information Form -->
+        <form action="{{ url_for('pension') }}" method="post" class="user-info-form">
+            {{ form.csrf_token }}
+            <div class="form-field">
+                {{ form.age.label }} {{ form.age(class="form-control") }}
+            </div>
+            <div class="form-field">
+                {{ form.years_of_work.label }} {{ form.years_of_work(class="form-control") }}
+            </div>
+            <div class="form-field">
+                {{ form.salary.label }} {{ form.salary(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+        </form>
+
+        <!-- Display results or other content based on the form submission -->
+        {% if pension %}
+            <div class="result-container">
+                <h2>Αναμενόμενη Σύνταξη</h2>
+                <p>{{ pension }}&euro;</p>
+            </div>
+        {% endif %}
+        <a href="/options" class="back-button">Back to Home</a>
+    </div>
+
+</body>
+</html>

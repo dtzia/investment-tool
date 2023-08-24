@@ -1,0 +1,299 @@
+/* static/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("/static/images/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-color: #f0f6ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #007bff;
+    font-size: 32px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.option-btn {
+    display: inline-block;
+    padding: 20px;
+    margin: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.option-btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.container,
+ .login-form-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 2rem auto;
+
+}
+
+.investment-data {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f0f6ff;
+}
+
+.fund {
+    flex: 0 0 calc(50% - 30px);
+    padding: 15px;
+    margin: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.fund label {
+    font-weight: bold;
+}
+
+.fund span {
+    display: block;
+    font-size: 18px;
+    color: #333;
+}
+
+.period-select {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.period-select label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.period-select select {
+    font-size: 16px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.period-select select:focus {
+    outline: none;
+    box-shadow: 0 0 3px #007bff;
+}
+
+.period-select button {
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.period-select button:hover {
+    background-color: #0056b3;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.investment-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.investment-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.investment-form input[type="number"],
+.investment-form input[type="text"],
+.investment-form button {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.investment-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.investment-form button:hover {
+    background-color: #0056b3;
+}
+
+.result-container {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.result-container h2 {
+    margin-top: 0;
+}
+
+.investment-plot img {
+    width: 100%;
+    max-width: 800px;
+}
+
+.user-info-form,
+.login-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-info-form label,
+.login-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.user-info-form input[type="number"],
+.user-info-form input[type="text"],
+.login-form input[type="text"],
+.login-form input[type="password"],
+.user-info-form button,
+.login-form button {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.user-info-form button,
+.login-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.user-info-form button:hover,
+.login-form button:hover {
+    background-color: #0056b3;
+}
+
+.exit-btn .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.exit-btn .btn:hover {
+    background
+
+/* Add a media query for smaller screens */
+@media (max-width: 768px) {
+    /* Adjust the styles for the pension form */
+    .user-info-form {
+        max-width: 90%; /* Adjust the width to fit the screen better */
+        margin: 20px auto;
+    }
+
+    /* Adjust the styles for the target amount form */
+    .investment-form {
+        max-width: 90%; /* Adjust the width to fit the screen better */
+        margin: 20px auto;
+    }
+
+    /* Adjust the styles for the value after investment form */
+    .investment-plot {
+        max-width: 90%; /* Adjust the width to fit the screen better */
+        margin: 20px auto;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

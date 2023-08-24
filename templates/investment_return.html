@@ -1,0 +1,51 @@
+<!-- templates/investment_return.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Return</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <h1>Investment Return</h1>
+        <!-- Period of Time Selector -->
+        <form action="/investment_return" method="get">
+            <div class="period-select">
+                <label for="period">Select a Period of Time:</label>
+                <select id="period" name="period">
+                    <option value="max">Max</option>
+                    <option value="1">1 Year</option>
+                    <option value="3">3 Years</option>
+                    <option value="5">5 Years</option>
+                    <option value="10">10 Years</option>
+                    <option value="15">15 Years</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+        <div class="investment-data">
+            <div class="fund">
+                <label for="fund1">Fund 1:</label>
+                <span id="fund1">NN Hellas Global Equities
+Multifund Passive Strategy</span>
+                <label for="return1">Return Percent:</label>
+                <span id="return1">{{final_passive_equities_return}} %</span>
+            </div>
+            <div class="fund">
+                <label for="fund2">Fund 2:</label>
+                <span id="fund2">NN Hellas Global Bonds
+Multifund Passive Strategy </span>
+                <label for="return2">Return Percent:</label>
+                <span id="return2">{{final_passive_bonds_return}} %</span>
+            </div>
+
+        <!-- Add any additional content or calculations here -->
+    </div>
+        <a href="/options" class="back-button">Back to Home</a>
+</body>
+</html>
