@@ -11,14 +11,10 @@ from wtforms.validators import DataRequired, Email, InputRequired, NumberRange
 from datetime import timedelta
 import os
 
-from fastapi import FastAPI
-
-app = FastAPI()
-
 
 matplotlib.use('Agg')
 
-
+app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
