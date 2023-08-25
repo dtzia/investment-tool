@@ -9,13 +9,14 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, FloatField, PasswordField
 from wtforms.validators import DataRequired, Email, InputRequired, NumberRange
 from datetime import timedelta
+import os
 
 
 matplotlib.use('Agg')
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'mysecretkey'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 NATIONAL_PENSION = 413.76
 
@@ -436,7 +437,7 @@ def login():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        if username == 'admin' and password == 'tziavras99engineer':
+        if username == os.environ.get('ADMIN') and password == os.environ.get('PASS'):
             session['logged_in'] = True
             return redirect(url_for('index'))
         else:
