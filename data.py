@@ -108,8 +108,10 @@ bonds_filenames = ['Vanguard Global Bond Index Fund EUR Hedged Acc.xlsx',
                    'Vanguard U.S. Government Bond Index Fund EUR Hedged Acc.xlsx',
                    'iShares Global Government Bond Index Fund (LU) D2 EUR.xlsx'
                    ]
-BONDS_FILEPATH = 'C:/Users/tziav/OneDrive/Υπολογιστής/Historical Prices/Passive Strategy Bonds/'
-EQUITIES_FILEPATH = 'C:/Users/tziav/OneDrive/Υπολογιστής/Historical Prices/Passive Strategy Equities/'
+BONDS_FILEPATH = './historical_prices/Passive Strategy Bonds/'
+EQUITIES_FILEPATH = './historical_prices/Passive Strategy Equities/'
+
+
 def excel_to_dict(filepath, name):
     data = pd.read_excel(filepath)
     date_column = 'Date'
