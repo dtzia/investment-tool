@@ -378,11 +378,13 @@ def inflation_effect():
 
 @app.route('/return_of_investment', methods=['GET', 'POST'])
 def return_of_investment():
+
     if session.get('logged_in'):
         global final_value, profit, contribution, plot_url
         form = ReturnOfInvestmentForm()
-        if form.validate_on_submit():
-            try:
+        try:
+            if form.validate_on_submit():
+
                 final_return = form.final_return.data
                 annual_contribution = form.annual_contribution.data
                 years_of_investment = form.years_of_investment.data
@@ -394,9 +396,8 @@ def return_of_investment():
                 plot_url = investment[3]
 
                 return redirect(url_for('return_of_investment', final_value=final_value, profit=profit, contribution=contribution, plot_url=plot_url))
-            except Exception as e:
-                print(e)
-
+        except Exception as e:
+            print(e)
         return render_template('return_of_investment.html', form=form, final_value=final_value, profit=profit, contribution=contribution, plot_url=plot_url)
     else:
         return redirect(url_for('login'))
@@ -448,7 +449,6 @@ def login():
 @app.route('/exit')
 def exit_option():
     session.pop('logged_in', None)
-    print('ciao dimitris')
     return redirect(url_for('login'))
 
 
