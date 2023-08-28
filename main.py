@@ -55,7 +55,6 @@ def passive_strategy_equities_return(data: dict, year):
         average_return.clear()
         for fund, prices in data.items():
             average_return.append(((prices['current_price'] - prices['starting_price']) / prices['starting_price']) / prices['years'])
-            print(average_return)
     elif year == 1:
         average_return.clear()
         one_year_ago = (datetime.now() - timedelta(days=365)).date()
@@ -135,7 +134,6 @@ def passive_strategy_bonds_return(data: dict, year):
         for fund, prices in data.items():
             average_return.append(
                 ((prices['current_price'] - prices['starting_price']) / prices['starting_price']) / prices['years'])
-            print(average_return)
     elif year == 1:
         average_return.clear()
         one_year_ago = (datetime.now() - timedelta(days=365)).date()
@@ -240,7 +238,7 @@ def returns_of_investment(final_average_return, monthly_contribution, years_of_i
         # Close the plot to release resources
         plt.close()
     except Exception as e:
-        traceback.print_exc()
+        print(e)
     profit = round(investment_value - total_contribution, 2)
     return round(investment_value, 2), round(total_contribution, 2), profit, plot_image
 
