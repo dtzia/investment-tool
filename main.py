@@ -1,3 +1,4 @@
+import traceback
 from io import BytesIO
 import base64
 import matplotlib
@@ -227,16 +228,19 @@ def returns_of_investment(final_average_return, monthly_contribution, years_of_i
     plt.xlabel('Χρόνια επένδυσης')
     plt.ylabel('Αξία επένδυσης')
     plt.title('Γράφημα της επένδυσης')
-    # Save the plot to a BytesIO buffer
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    buffer.seek(0)
+    try:
+        # Save the plot to a BytesIO buffer
+        buffer = BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
 
-    # Encode the plot image as base64 and convert to a string
-    plot_image = base64.b64encode(buffer.read()).decode('utf-8')
+        # Encode the plot image as base64 and convert to a string
+        plot_image = base64.b64encode(buffer.read()).decode('utf-8')
 
-    # Close the plot to release resources
-    plt.close()
+        # Close the plot to release resources
+        plt.close()
+    except Exception as e:
+        traceback.print_exc()
     profit = round(investment_value - total_contribution, 2)
     return round(investment_value, 2), round(total_contribution, 2), profit, plot_image
 
