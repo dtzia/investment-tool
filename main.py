@@ -227,22 +227,17 @@ def returns_of_investment(final_average_return, monthly_contribution, years_of_i
     plt.xlabel('Χρόνια επένδυσης')
     plt.ylabel('Αξία επένδυσης')
     plt.title('Γράφημα της επένδυσης')
-    # Save the plot in memory
+    # Save the plot to a BytesIO buffer
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
 
     # Encode the plot image as base64 and convert to a string
-    plot_image = base64.b64encode(buffer.getvalue()).decode('utf-8')
-    print(plot_image)
+    plot_image = base64.b64encode(buffer.read()).decode('utf-8')
+
     # Close the plot to release resources
     plt.close()
-    # num = random.randint(0,1000000000000000)
-    # plt.savefig(f'./static/images/invest_plot{num}.png', format='png')
-    # print('check')
-
     profit = round(investment_value - total_contribution, 2)
-    print(round(investment_value, 2), profit)
     return round(investment_value, 2), round(total_contribution, 2), profit, plot_image
 
 
