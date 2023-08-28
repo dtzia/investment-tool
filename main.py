@@ -226,19 +226,18 @@ def returns_of_investment(final_average_return, monthly_contribution, years_of_i
     plt.xlabel('Χρόνια επένδυσης')
     plt.ylabel('Αξία επένδυσης')
     plt.title('Γράφημα της επένδυσης')
-    try:
-        # Save the plot to a BytesIO buffer
-        buffer = BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
 
-        # Encode the plot image as base64 and convert to a string
-        plot_image = base64.b64encode(buffer.read()).decode('utf-8')
+    # Save the plot to a BytesIO buffer
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
 
-        # Close the plot to release resources
-        plt.close()
-    except Exception as e:
-        print(e)
+    # Encode the plot image as base64 and convert to a string
+    plot_image = base64.b64encode(buffer.read()).decode('utf-8')
+
+    # Close the plot to release resources
+    plt.close()
+
     profit = round(investment_value - total_contribution, 2)
     return round(investment_value, 2), round(total_contribution, 2), profit, plot_image
 
@@ -383,17 +382,20 @@ def return_of_investment():
         global final_value, profit, contribution, plot_url
         form = ReturnOfInvestmentForm()
         if form.validate_on_submit():
-            final_return = form.final_return.data
-            annual_contribution = form.annual_contribution.data
-            years_of_investment = form.years_of_investment.data
-            annual_adjustment = form.annual_adjustment.data
-            investment = returns_of_investment(final_return, annual_contribution, years_of_investment, annual_adjustment)
-            final_value = investment[0]
-            profit = investment[2]
-            contribution = investment[1]
-            plot_url = investment[3]
+            try:
+                final_return = form.final_return.data
+                annual_contribution = form.annual_contribution.data
+                years_of_investment = form.years_of_investment.data
+                annual_adjustment = form.annual_adjustment.data
+                investment = returns_of_investment(final_return, annual_contribution, years_of_investment, annual_adjustment)
+                final_value = investment[0]
+                profit = investment[2]
+                contribution = investment[1]
+                plot_url = investment[3]
 
-            return redirect(url_for('return_of_investment', final_value=final_value, profit=profit, contribution=contribution, plot_url=plot_url))
+                return redirect(url_for('return_of_investment', final_value=final_value, profit=profit, contribution=contribution, plot_url=plot_url))
+            except Exception as e:
+                print(e)
 
         return render_template('return_of_investment.html', form=form, final_value=final_value, profit=profit, contribution=contribution, plot_url=plot_url)
     else:
