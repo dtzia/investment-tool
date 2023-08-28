@@ -448,6 +448,7 @@ def login():
 @app.route('/exit')
 def exit_option():
     session.pop('logged_in', None)
+    print('ciao dimitris')
     return redirect(url_for('login'))
 
 
