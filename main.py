@@ -227,19 +227,16 @@ def returns_of_investment(final_average_return, monthly_contribution, years_of_i
     plt.ylabel('Αξία επένδυσης')
     plt.title('Γράφημα της επένδυσης')
 
-    # Save the plot to a BytesIO buffer
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    buffer.seek(0)
-
-    # Encode the plot image as base64 and convert to a string
-    plot_image = base64.b64encode(buffer.read()).decode('utf-8')
+    STATIC_DIR = "static"
+    os.makedirs(STATIC_DIR, exist_ok=True)
+    plot_image_path = os.path.join(STATIC_DIR, "plot.png")
+    plt.savefig(plot_image_path, format='png')
 
     # Close the plot to release resources
     plt.close()
 
     profit = round(investment_value - total_contribution, 2)
-    return round(investment_value, 2), round(total_contribution, 2), profit, plot_image
+    return round(investment_value, 2), round(total_contribution, 2), profit, plot_image_path
 
 
 # pension calculation
@@ -306,6 +303,7 @@ class InflationForm(FlaskForm):
     initial_amount = IntegerField('Αρχικό κεφάλαιο', validators=[DataRequired(), NumberRange(min=0)])
     years = IntegerField('Χρόνια που πέρασαν', validators=[DataRequired(), NumberRange(min=0)])
 
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -361,6 +359,7 @@ def investment_return():
     else:
         return redirect(url_for('login'))
 
+
 @app.route('/value_after_inflation', methods=['GET', 'POST'])
 def inflation_effect():
     if session.get('logged_in'):
@@ -376,31 +375,28 @@ def inflation_effect():
     else:
         return redirect(url_for('login'))
 
+
 @app.route('/return_of_investment', methods=['GET', 'POST'])
 def return_of_investment():
-
     if session.get('logged_in'):
         global final_value, profit, contribution, plot_url
         form = ReturnOfInvestmentForm()
-        try:
-            if form.validate_on_submit():
+        if form.validate_on_submit():
+            final_return = form.final_return.data
+            annual_contribution = form.annual_contribution.data
+            years_of_investment = form.years_of_investment.data
+            annual_adjustment = form.annual_adjustment.data
+            investment = returns_of_investment(final_return, annual_contribution, years_of_investment, annual_adjustment)
+            final_value = investment[0]
+            profit = investment[2]
+            contribution = investment[1]
+            plot_url = investment[3]
 
-                final_return = form.final_return.data
-                annual_contribution = form.annual_contribution.data
-                years_of_investment = form.years_of_investment.data
-                annual_adjustment = form.annual_adjustment.data
-                investment = returns_of_investment(final_return, annual_contribution, years_of_investment, annual_adjustment)
-                final_value = investment[0]
-                profit = investment[2]
-                contribution = investment[1]
-                plot_url = investment[3]
-
-                return redirect(url_for('return_of_investment', final_value=final_value, profit=profit, contribution=contribution, plot_url=plot_url))
-        except Exception as e:
-            print(e)
+            return redirect(url_for('return_of_investment', final_value=final_value, profit=profit, contribution=contribution, plot_url=plot_url))
         return render_template('return_of_investment.html', form=form, final_value=final_value, profit=profit, contribution=contribution, plot_url=plot_url)
     else:
         return redirect(url_for('login'))
+
 
 @app.route('/pension', methods=['GET', 'POST'])
 def pension():
