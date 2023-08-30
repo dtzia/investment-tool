@@ -6,6 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 import pandas as pd
 import openpyxl
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
 
 
 app = Flask(__name__)
@@ -148,13 +151,20 @@ def get_current_price(fund_name: str):
         session=db.session
         if fund_name == 'Vanguard FTSE All-World UCITS ETF':
             try:
-                price = soup.find('div', {'class':'val'}).text
+                driver = webdriver.Chrome()
+                # Navigate to the webpage
+                driver.get(
+                    'https://www.vanguard.co.uk/professional/product/etf/equity/9679/ftse-all-world-ucits-etf-usd-accumulating')
+                element = driver.find_element(By.XPATH, "//*[@id='back-to-top']/europe-core-root/europe-core-product-page/aem-page/aem-model-provider/nds-aem-base-responsive-grid/div/nds-aem-base-responsive-grid/div[3]/europe-core-jump-links-list/div[4]/europe-core-gpx-product-detail-fund-cards-container/europe-core-product-detail-fund-cards/div/div[1]/europe-core-product-detail-fund-card/div[1]/div[2]")
+                element_text = element.text
+                price = element_text[3:]
                 fund_price = session.query(MutualFund).filter_by(name=fund_name).first()
                 fund_price.current_price = price
+                driver.quit()
             except AttributeError:
-                # fund = session.query(MutualFund).filter_by(name=fund_name).first()
-                # price = fund.current_price
-                price = 109.7
+                fund = session.query(MutualFund).filter_by(name=fund_name).first()
+                price = fund.current_price
+
             session.commit()
         else:
             try:
