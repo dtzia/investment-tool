@@ -8,6 +8,8 @@ import pandas as pd
 import openpyxl
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service as ChromeService
+import os
 
 
 
@@ -151,7 +153,13 @@ def get_current_price(fund_name: str):
         session=db.session
         if fund_name == 'Vanguard FTSE All-World UCITS ETF':
             try:
-                driver = webdriver.Chrome()
+                chrome_options = webdriver.ChromeOptions()
+                chrome_options.add_argument("--headless")
+                chrome_options.add_argument("--disable-dev-shm-usage")
+                chrome_options.add_argument("--no-sandbox")
+                chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+                service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+                driver = webdriver.Chrome(service=service, options=chrome_options)
                 # Navigate to the webpage
                 driver.get(
                     'https://www.vanguard.co.uk/professional/product/etf/equity/9679/ftse-all-world-ucits-etf-usd-accumulating')
@@ -160,6 +168,7 @@ def get_current_price(fund_name: str):
                 price = element_text[3:]
                 fund_price = session.query(MutualFund).filter_by(name=fund_name).first()
                 fund_price.current_price = price
+                print(price)
                 driver.quit()
             except AttributeError:
                 fund = session.query(MutualFund).filter_by(name=fund_name).first()
