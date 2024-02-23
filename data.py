@@ -160,7 +160,7 @@ def get_current_price(fund_name: str):
                 chrome_options.add_argument("--no-sandbox")
                 chrome_options.binary_location = str(os.environ.get("GOOGLE_CHROME_BIN"))
                 service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
-                driver = webdriver.Chrome(service=service, options=chrome_options)
+                driver = webdriver.Chrome(options=chrome_options)
                 # Navigate to the webpage
                 driver.get(
                     'https://www.vanguard.co.uk/professional/product/etf/equity/9679/ftse-all-world-ucits-etf-usd-accumulating')
