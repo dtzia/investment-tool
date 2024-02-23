@@ -139,7 +139,7 @@ def login():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        if username == os.environ.get('ADMIN') and password == os.environ.get('PASS'):
+        if username == os.environ.get('ADMIN') and password == os.environ.get('PASS') or (username == os.environ.get('guest') and password == os.environ.get('guest')):
             session['logged_in'] = True
             return redirect(url_for('index'))
         else:
