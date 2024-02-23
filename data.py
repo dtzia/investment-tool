@@ -13,6 +13,7 @@ import os
 
 
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
 db = SQLAlchemy(app)
@@ -150,7 +151,7 @@ def get_current_price(fund_name: str):
     web_page = response.text
     soup = BeautifulSoup(web_page, 'html.parser')
     with app.app_context():
-        session=db.session
+        session = db.session
         if fund_name == 'Vanguard FTSE All-World UCITS ETF':
             try:
                 chrome_options = webdriver.ChromeOptions()
