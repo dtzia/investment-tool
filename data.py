@@ -158,7 +158,7 @@ def get_current_price(fund_name: str):
                 chrome_options.add_argument("--headless")
                 chrome_options.add_argument("--disable-dev-shm-usage")
                 chrome_options.add_argument("--no-sandbox")
-                chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+                chrome_options.binary_location = str(os.environ.get("GOOGLE_CHROME_BIN"))
                 service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
                 driver = webdriver.Chrome(service=service, options=chrome_options)
                 # Navigate to the webpage
