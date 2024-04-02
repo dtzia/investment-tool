@@ -164,7 +164,7 @@ def get_current_price(fund_name: str):
                 # Navigate to the webpage
                 driver.get(
                     'https://www.vanguard.co.uk/professional/product/etf/equity/9679/ftse-all-world-ucits-etf-usd-accumulating')
-                element = driver.find_element(By.XPATH, "//*[@id='back-to-top']/europe-core-root/europe-core-product-page/aem-page/aem-model-provider/nds-aem-base-responsive-grid/div/nds-aem-base-responsive-grid/div[3]/europe-core-jump-links-list/div[4]/europe-core-gpx-product-detail-fund-cards-container/europe-core-product-detail-fund-cards/div/div[1]/europe-core-product-detail-fund-card/div[1]/div[2]")
+                element = driver.find_element(By.XPATH, "//*[@id='back-to-top']/europe-core-root/europe-core-product-page/aem-page/aem-model-provider/aem-responsivegrid/div/aem-responsivegrid/div[3]/europe-core-jump-links-list/div[4]/europe-core-gpx-product-detail-fund-cards-container/europe-core-product-detail-fund-cards/div/div[1]/europe-core-product-detail-fund-card/div[1]/div[2]")
                 element_text = element.text
                 price = element_text[3:]
                 fund_price = session.query(MutualFund).filter_by(name=fund_name).first()
